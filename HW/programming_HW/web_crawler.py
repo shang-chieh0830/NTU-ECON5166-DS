@@ -67,12 +67,11 @@ def get_hotels(location, checkin, checkout, num_results=100):
         # Append temp_df to the main DataFrame hotels_df
         hotels = pd.concat([hotels, temp_df], ignore_index=True)
 
-        if len(hotels) >= num_results:
-            break
+
         
     hotels['price'] = hotels['price'].str.replace('TWD', '').str.replace(',', '').astype(int)
     hotels["ratings"] = hotels["ratings"].astype(float)
     hotels["comments"] = hotels["comments"].astype(str)
     hotels['distance'] = hotels['distance'].apply(lambda x: None if x is None else (float(x.replace('距中心 ', '').split(' ')[0]) / 1000) if '公尺' in x else float(x.replace('距中心 ', '').split(' ')[0]))
     
-    return hotels
+    return hotels[:num_results]
