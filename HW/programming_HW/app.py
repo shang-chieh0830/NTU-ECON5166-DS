@@ -71,7 +71,7 @@ def update_hotel_data(n_clicks, location, start_date, end_date):
     if end_date is None:
         end_date = datetime.now().strftime('%Y-%m-%d')
 
-    # Call your web crawler function with user inputs
+    # Call  web crawler function with user inputs
     hotels = web_crawler.get_hotels(location, start_date, end_date)
 
     # Create the scatter plot using Plotly Express
@@ -92,6 +92,7 @@ def update_hotel_data(n_clicks, location, start_date, end_date):
 
     return fig
 
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(port=5166, debug=True)
 
