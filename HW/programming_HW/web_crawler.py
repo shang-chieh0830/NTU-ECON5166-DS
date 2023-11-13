@@ -45,8 +45,9 @@ def get_hotels(location, checkin, checkout, num_results=100):
         temp_df = pd.DataFrame(columns=columns)
 
         # Extract the data from the list and add it to the temp DataFrame
-        for item in ratings_data[1:51:2]:
-            # Use regular expression to extract ratings and comments      
+        for item in ratings_data[1:52:2]:
+            # Use regular expression to extract ratings and comments  
+
             match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語).*', item)
             if match:
                 rating, comment_text, _ = match.groups()
