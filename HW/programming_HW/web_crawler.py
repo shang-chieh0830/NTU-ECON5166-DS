@@ -82,3 +82,4 @@ def get_hotels(location, checkin, checkout, num_results=100):
     hotels["comments"] = hotels["comments"].astype(str)
     hotels['distance'] = hotels['distance'].apply(lambda x: None if x is None else (float(x.replace('距中心 ', '').split(' ')[0]) / 1000) if '公尺' in x else float(x.replace('距中心 ', '').split(' ')[0]))
     return hotels[:num_results]
+
