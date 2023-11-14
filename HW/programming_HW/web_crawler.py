@@ -48,19 +48,35 @@ def get_hotels(location, checkin, checkout, num_results=100):
         # Extract the data from the list and add it to the temp DataFrame
         #for item in ratings_data:
         #    print(item)
-        for item in ratings_data[1:52:2]: # if ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.a5f1aae5b2.cd2e7d62b0')] is used
-        #    print(item)
+        
+        #print(len(ratings_data))
+        if len(ratings_data) == 53:
+            for item in ratings_data[1:54:2]: 
+            #    print(item)
 
-            # Use regular expression to extract ratings and comments  
-            match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
-            if match:
-                rating, comment_text, _ = match.groups()
-            else:
-                rating = None
-                comment_text = None
+                # Use regular expression to extract ratings and comments  
+                match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
+                if match:
+                    rating, comment_text, _ = match.groups()
+                else:
+                    rating = None
+                    comment_text = None
+
+                temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
+        else:
+            for item in ratings_data[1:52:2]: 
+            #    print(item)
+
+                # Use regular expression to extract ratings and comments  
+                match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
+                if match:
+                    rating, comment_text, _ = match.groups()
+                else:
+                    rating = None
+                    comment_text = None
+
+                temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
                 
-            temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
-
         #names_data = [name.text.strip() for name in soup.select('div[data-testid="title"].f6431b446c.a15b38c233')]
         #for item in names_data:
         #    print(item)
