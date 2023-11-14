@@ -38,6 +38,7 @@ def get_hotels(location, checkin, checkout, num_results=100):
     
             
         ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.a5f1aae5b2.cd2e7d62b0')]
+        #ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.aaf30230d9.e1ffac4e41.e7d9f93f4d.d79e71457a.d5fd510f01.dc7f26e57f')]
         if not ratings_data: #沒資料就break
             break
         
@@ -45,10 +46,11 @@ def get_hotels(location, checkin, checkout, num_results=100):
         temp_df = pd.DataFrame(columns=columns)
 
         # Extract the data from the list and add it to the temp DataFrame
-        for item in ratings_data[1:52:2]:
-            
-            #print(item)
-            
+        #for item in ratings_data:
+        #    print(item)
+        for item in ratings_data[1:52:2]: # if ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.a5f1aae5b2.cd2e7d62b0')] is used
+        #    print(item)
+
             # Use regular expression to extract ratings and comments  
             match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
             if match:
@@ -59,7 +61,9 @@ def get_hotels(location, checkin, checkout, num_results=100):
                 
             temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
 
-            
+        #names_data = [name.text.strip() for name in soup.select('div[data-testid="title"].f6431b446c.a15b38c233')]
+        #for item in names_data:
+        #    print(item)
         temp_df["name"] = [name.text.strip() for name in soup.select('div[data-testid="title"].f6431b446c.a15b38c233')]
         temp_df["location"] = [location.text.strip() for location in soup.select('span.aee5343fdb.def9bc142a[data-testid="address"]')]
         temp_df["price"] = [price.text.strip() for price in soup.select("span.f6431b446c.fbfd7c1165.e84eb96b1f")]
