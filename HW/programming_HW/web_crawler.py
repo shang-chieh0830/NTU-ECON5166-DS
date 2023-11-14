@@ -37,8 +37,9 @@ def get_hotels(location, checkin, checkout, num_results=100):
         offset += 25
     
             
-        ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.a5f1aae5b2.cd2e7d62b0')]
+        ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.ebac6e22e9.cd2e7d62b0.a0ff1335a1')]
         #ratings_data = [rating.text.strip() for rating in soup.select('div.aca0ade214.aaf30230d9.e1ffac4e41.e7d9f93f4d.d79e71457a.d5fd510f01.dc7f26e57f')]
+        
         if not ratings_data: #沒資料就break
             break
         
@@ -50,32 +51,19 @@ def get_hotels(location, checkin, checkout, num_results=100):
         #    print(item)
         
         #print(len(ratings_data))
-        if len(ratings_data) == 53:
-            for item in ratings_data[1:54:2]: 
-            #    print(item)
 
-                # Use regular expression to extract ratings and comments  
-                match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
-                if match:
-                    rating, comment_text, _ = match.groups()
-                else:
-                    rating = None
-                    comment_text = None
+        for item in ratings_data: 
+            #print(item)
 
-                temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
-        else:
-            for item in ratings_data[1:52:2]: 
-            #    print(item)
+            # Use regular expression to extract ratings and comments  
+            match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
+            if match:
+                rating, comment_text, _ = match.groups()
+            else:
+                rating = None
+                comment_text = None
 
-                # Use regular expression to extract ratings and comments  
-                match = re.match(r'(\d\.\d)(\D+)(\d*,?\d+\s則評語)', item)
-                if match:
-                    rating, comment_text, _ = match.groups()
-                else:
-                    rating = None
-                    comment_text = None
-
-                temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
+            temp_df.loc[len(temp_df)] = [None, None, None, rating, None, comment_text]
                 
         #names_data = [name.text.strip() for name in soup.select('div[data-testid="title"].f6431b446c.a15b38c233')]
         #for item in names_data:
