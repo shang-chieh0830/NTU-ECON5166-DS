@@ -1,6 +1,6 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 import web_crawler  # Import my web crawler function
 import plotly.express as px
@@ -94,5 +94,5 @@ def update_hotel_data(n_clicks, location, start_date, end_date):
 
 
 if __name__ == '__main__':
-    app.run_server(port=5166, debug=True)
+    app.run_server(port=1234, debug=True)
 
